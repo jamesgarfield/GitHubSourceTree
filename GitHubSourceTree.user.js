@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       GitHubSourceTree
 // @namespace  http://really-serious.biz/
-// @version    1.0
+// @version    1.0.1
 // @description  Adds a "Clone in SourceTree" button to github pages
 // @respository  https://github.com/jamesgarfield/GitHubSourceTree
 // @match https://*github.com/*
@@ -12,6 +12,11 @@
 	const $ = document.querySelectorAll.bind(document);
     
     const gitHubNode = $(".clone-options + a")[0]
+
+    if (!gitHubNode) {
+    	return;
+    }
+
     const parentNode = gitHubNode.parentNode;
     const insertBeforeNode = gitHubNode.nextSibling;
     const gitURL = $(".clone-url-box .js-url-field")[0].value
