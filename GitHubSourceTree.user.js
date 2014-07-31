@@ -3,6 +3,7 @@
 // @namespace  http://really-serious.biz/
 // @version    1.0
 // @description  Adds a "Clone in SourceTree" button to github pages
+// @respository  https://github.com/jamesgarfield/GitHubSourceTree
 // @match https://*github.com/*
 // @copyright  2014+, James Garfield
 // ==/UserScript==
