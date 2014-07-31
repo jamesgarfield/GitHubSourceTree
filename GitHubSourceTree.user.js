@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       GitHubSourceTree
 // @namespace  http://really-serious.biz/
-// @version    1.0.1
+// @version    1.0.2
 // @description  Adds a "Clone in SourceTree" button to github pages
 // @respository  https://github.com/jamesgarfield/GitHubSourceTree
 // @match https://*github.com/*
@@ -9,7 +9,7 @@
 // ==/UserScript==
 
 (function(){
-	const $ = document.querySelectorAll.bind(document);
+    const $ = document.querySelectorAll.bind(document);
     
     const gitHubNode = $(".clone-options + a")[0]
 
