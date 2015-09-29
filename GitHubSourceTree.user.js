@@ -28,7 +28,7 @@ function ghst_init(){
 
     var sourceTreeNode = gitHubNode.cloneNode();
     sourceTreeNode.href = 'sourcetree://cloneRepo/' + gitURL;
-    sourceTreeNode.innerHTML = '<span class="octicon octicon-device-desktop"></span>Clone in SourceTree';
+    sourceTreeNode.innerHTML = '<span class="octicon octicon-device-desktop"></span>&nbsp;Clone in SourceTree';
     
     parentNode.insertBefore(sourceTreeNode, insertBeforeNode);
 }
