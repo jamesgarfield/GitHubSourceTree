@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       GitHubSourceTree
 // @namespace  http://really-serious.biz/
-// @version    1.1.3
+// @version    1.1.4
 // @description  Adds a "Clone in SourceTree" button to github pages
 // @respository  https://github.com/jamesgarfield/GitHubSourceTree
 // @updateURL  https://github.com/jamesgarfield/GitHubSourceTree/raw/master/GitHubSourceTree.user.js
@@ -13,8 +13,8 @@
 // ==/UserScript==
 
 //Firefox/GreaseMonkey apppears to not like IIFEs, so use of a named function is required
-ghst_init();
-function ghst_init(){
+ghst();
+function ghst(){
     const $ = document.querySelectorAll.bind(document);
     
     //Defining constants
@@ -43,9 +43,10 @@ function ghst_init(){
         }, 0);
       });
     }
+
+    //Function returns currently selected clone url
+    function getSelectedCloneUrl() {
+        return $("div.js-clone-url.open")[0].querySelector(".js-url-field").value;
+    }
 }
 
-//Function returns currently selected clone url
-function getSelectedCloneUrl() {
-  return document.querySelectorAll("div.js-clone-url.open")[0].querySelector(".js-url-field").value;
-}
