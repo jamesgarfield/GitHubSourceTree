@@ -16,6 +16,9 @@
 ghst_init();
 function ghst_init(){
     const $ = document.querySelectorAll.bind(document);
+    
+    //Defining constants
+    const sourceTreeUrlPrefix = "sourcetree://cloneRepo/"
 
     //GitHub's "Clone in Desktop" Button
     const gitHubNode = $(".clone-options + a")[0]
@@ -23,17 +26,26 @@ function ghst_init(){
 
     //Insert our button between the GitHub Clone button and whatever is after it.
     const insertBeforeNode = gitHubNode.nextSibling;
-    
+
     var sourceTreeNode = gitHubNode.cloneNode();
-    sourceTreeNode.href = '#';
+    sourceTreeNode.href = sourceTreeUrlPrefix + getSelectedCloneUrl();
     sourceTreeNode.innerHTML = '<span class="octicon octicon-device-desktop"></span>&nbsp;Clone in SourceTree';
-		sourceTreeNode.onclick = function() {
-			//Find the clone url for this repo. We peek the currently selected schema.
-			const gitURL = $("div.js-clone-url.open")[0].querySelector(".js-url-field").value;
-			
-			window.location.href='sourcetree://cloneRepo/' + gitURL;
-			return false;
-		};
     
     parentNode.insertBefore(sourceTreeNode, insertBeforeNode);
+    
+    //Implement dynamic button link update on schema selection
+    const allProtoSwitchButtons = $("button.js-clone-selector");
+    for(var i = 0; i < allProtoSwitchButtons.length; ++i) {
+      allProtoSwitchButtons[i].addEventListener("click", function(e) {
+        //Run update after all other GitHub handlers were executed (so url was updated).
+        setTimeout(function() {
+          sourceTreeNode.href = sourceTreeUrlPrefix + getSelectedCloneUrl();
+        }, 0);
+      });
+    }
+}
+
+//Function returns currently selected clone url
+function getSelectedCloneUrl() {
+  return document.querySelectorAll("div.js-clone-url.open")[0].querySelector(".js-url-field").value;
 }
