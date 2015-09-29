@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       GitHubSourceTree
 // @namespace  http://really-serious.biz/
-// @version    1.1.2
+// @version    1.1.3
 // @description  Adds a "Clone in SourceTree" button to github pages
 // @respository  https://github.com/jamesgarfield/GitHubSourceTree
 // @updateURL  https://github.com/jamesgarfield/GitHubSourceTree/raw/master/GitHubSourceTree.user.js
@@ -23,12 +23,17 @@ function ghst_init(){
 
     //Insert our button between the GitHub Clone button and whatever is after it.
     const insertBeforeNode = gitHubNode.nextSibling;
-    //Find the clone url for this repo
-    const gitURL = $(".js-url-field")[0].value
-
+    
     var sourceTreeNode = gitHubNode.cloneNode();
-    sourceTreeNode.href = 'sourcetree://cloneRepo/' + gitURL;
+    sourceTreeNode.href = '#';
     sourceTreeNode.innerHTML = '<span class="octicon octicon-device-desktop"></span>&nbsp;Clone in SourceTree';
+		sourceTreeNode.onclick = function() {
+			//Find the clone url for this repo. We peek the currently selected schema.
+			const gitURL = $("div.js-clone-url.open")[0].querySelector(".js-url-field").value;
+			
+			window.location.href='sourcetree://cloneRepo/' + gitURL;
+			return false;
+		};
     
     parentNode.insertBefore(sourceTreeNode, insertBeforeNode);
 }
